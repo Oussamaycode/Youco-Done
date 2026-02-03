@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nom');
             $table->string('localisation');
             $table->integer('capacite');
+            
             $table->boolean('statut');
             $table->timestamps();
         });
