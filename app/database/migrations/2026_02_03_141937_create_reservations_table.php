@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('reservation', function (Blueprint $table) {
             $table->id();
+            $table->time('heure_reservation');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('restaurant_id')->constrained();
             $table->timestamps();
         });
     }
