@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nom');
             $table->integer('prix');
             $table->foreignId('menu_id');
+            $table->foreignId('typecuisine_id');
             $table->timestamps();
         });
     }
