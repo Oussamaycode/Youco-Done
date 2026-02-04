@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('plat', function (Blueprint $table) {
             $table->id();
+            $table->string('nom');
+            $table->integer('prix');
+            $table->foreignId('menu_id');
             $table->timestamps();
         });
     }

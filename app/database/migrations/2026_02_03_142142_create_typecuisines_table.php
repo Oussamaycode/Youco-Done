@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('type_cuisine', function (Blueprint $table) {
             $table->id();
+            $table->
             $table->timestamps();
         });
     }
