@@ -20,12 +20,22 @@ class PlatController extends Controller
         $request->validate([
             'nom' => 'required|string',
             'prix' => 'required|integer',
-            'menu_id' => 'required|exists:menus,id',
-            'type_cuisine_id' => 'required|exists:type_cuisines,id',
+    
         ]);
 
-        $plat = Plat::create($request->only('nom', 'prix', 'menu_id', 'type_cuisine_id'));
-        return response()->json($plat, 201);
+        $user_id= auth()->user()->id;
+        $restaurant_id=Restaurant::where('user_id',$user_id)->orderBy('id','desc')->first;//akhir restaurant tzad how li kancreew lih l menu daba
+        $menu_id=Menu::where('restaurant_id',$restaurant_id)->get();
+        $typecuisine_id=Restaurant::where('id',$restaurant_id)->value('typecuisine_id');
+
+        Plat::create(['nom'=>$data['nom'],
+        'nom'=>$request->nom,
+        'prix'=>$request->prix,
+        'menu_id'=>$menu_id,
+        'typecuisine_id'=>$typecuisine_id,
+        ]);
+
+        return redirect()->route('menu.create');
     }
 
     public function show($id)

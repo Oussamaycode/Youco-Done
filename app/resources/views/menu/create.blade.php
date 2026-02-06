@@ -123,32 +123,20 @@
 <button class="text-[#638888]"><span class="material-symbols-outlined">more_horiz</span></button>
 </div>
 <div class="space-y-3">
+
 <!-- Menu Item -->
-<div class="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-[#dce5e5] dark:border-[#2a3f3f] bg-background-light/50 dark:bg-[#112121]/50">
+<form method='POST' action='{{route("menu.store")}}'>
 <div class="w-full sm:w-1/4">
-<label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Item Name</label>
-<input class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm font-medium" type="text" value="Truffle Tagliatelle"/>
+<label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Menu Name</label>
+<input name="" class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm" placeholder="e.g. Ribeye Steak" type="text"/>
 </div>
-<div class="flex-1">
-<label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Description</label>
-<input class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm" type="text" value="Fresh pasta with seasonal black truffles and parmesan cream"/>
-</div>
-<div class="w-24">
-<label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Price</label>
-<input class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm text-center" type="text" value="$28.00"/>
-</div>
-<div class="flex items-end pb-1 gap-2">
-<button class="h-8 w-8 rounded bg-[#f0f4f4] dark:bg-[#2a3f3f] flex items-center justify-center text-red-500">
-<span class="material-symbols-outlined text-lg">delete</span>
-</button>
-</div>
-</div>
-<!-- Menu Item -->
-<form method="POST" action='{{route("menu.store")}}'>
+<button type="submit" class="px-8 py-2.5 rounded-lg bg-primary text-[#111818] text-sm font-bold shadow-lg shadow-primary/20">Save</butoon>
+</form>
+<form method="POST" action='{{route("plat.store")}}'>
 <div class="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-[#dce5e5] dark:border-[#2a3f3f]"  id="menu-container">
 <div class="w-full sm:w-1/4">
 <label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Item Name</label>
-<input class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm" placeholder="e.g. Ribeye Steak" type="text"/>
+<input name="" class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm" placeholder="e.g. Ribeye Steak" type="text"/>
 </div>
 <div class="flex-1">
 <label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Description</label>
@@ -159,7 +147,7 @@
 <input class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm text-center" placeholder="0.00" type="text"/>
 </div>
 <div class="flex items-end pb-1 gap-2">
-<button type="button"
+<button type="submit"
         class="add-item h-10 px-4 rounded-lg bg-primary text-[#111818] text-sm font-bold flex items-center gap-1">
     <span class="material-symbols-outlined text-sm">add</span> Add
 </button>
@@ -181,7 +169,7 @@
                 </div>
 <div class="flex gap-4">
 <button class="px-6 py-2.5 rounded-lg border border-[#dce5e5] dark:border-[#2a3f3f] text-sm font-bold">Save Draft</button>
-<button type="submit" class="px-8 py-2.5 rounded-lg bg-primary text-[#111818] text-sm font-bold shadow-lg shadow-primary/20">Next Section: Menu</button>
+
 </form>
 </div>
 </div>

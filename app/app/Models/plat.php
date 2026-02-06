@@ -10,7 +10,7 @@ class Plat extends Model
         'nom',
         'prix',
         'menu_id',
-        'type_cuisine_id'
+        'typecuisine_id'
     ];
 
     public function menu()

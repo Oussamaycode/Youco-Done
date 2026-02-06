@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-    protected $fillable = ['nom'];
+    protected $fillable = ['nom','restaurant_id'];
 
     public function plats()
     {
