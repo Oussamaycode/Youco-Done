@@ -104,7 +104,18 @@
 </a>
 </div>
 </aside>
+<div>
 
+<form method='POST' action='{{route("menu.create")}}' >
+    @csrf
+<div class="w-full sm:w-1/4">
+<label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Menu Name</label>
+<input name="nom" class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm" placeholder="e.g. Ribeye Steak" type="text"/>
+</div>
+<button type="submit" id="savemenuname" class="px-8 py-2.5 rounded-lg bg-primary text-[#111818] text-sm font-bold shadow-lg shadow-primary/20">Save</butoon>
+</form>
+
+</div>
 <!-- Menu Management Section -->
 <section class="bg-white dark:bg-[#1a2e2e] rounded-xl border border-[#dce5e5] dark:border-[#2a3f3f] overflow-hidden" id="menu">
 <div class="flex items-center justify-between px-6 py-4 border-b border-[#dce5e5] dark:border-[#2a3f3f]">
@@ -125,26 +136,21 @@
 <div class="space-y-3">
 
 <!-- Menu Item -->
-<form method='POST' action='{{route("menu.store")}}'>
-<div class="w-full sm:w-1/4">
-<label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Menu Name</label>
-<input name="" class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm" placeholder="e.g. Ribeye Steak" type="text"/>
-</div>
-<button type="submit" class="px-8 py-2.5 rounded-lg bg-primary text-[#111818] text-sm font-bold shadow-lg shadow-primary/20">Save</butoon>
-</form>
+
 <form method="POST" action='{{route("plat.store")}}'>
+    @csrf
 <div class="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-[#dce5e5] dark:border-[#2a3f3f]"  id="menu-container">
 <div class="w-full sm:w-1/4">
 <label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Item Name</label>
-<input name="" class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm" placeholder="e.g. Ribeye Steak" type="text"/>
+<input name="nom" class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm" placeholder="e.g. Ribeye Steak" type="text"/>
 </div>
 <div class="flex-1">
 <label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Description</label>
-<input class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm" placeholder="Ingredients, dietary info..." type="text"/>
+<input name="description" class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm" placeholder="Ingredients, dietary info..." type="text"/>
 </div>
 <div class="w-24">
 <label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Price</label>
-<input class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm text-center" placeholder="0.00" type="text"/>
+<input name="prix" class="form-input w-full h-10 rounded border-[#dce5e5] dark:bg-[#1a2e2e] text-sm text-center" placeholder="0.00" type="text"/>
 </div>
 <div class="flex items-end pb-1 gap-2">
 <button type="submit"
@@ -161,6 +167,8 @@
 </div>
 </div>
 </main>
+
+
 <footer class="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-[#1a2e2e]/80 backdrop-blur-md border-t border-[#dce5e5] dark:border-[#2a3f3f] z-40">
 <div class="max-w-[1200px] mx-auto px-10 py-4 flex justify-between items-center">
 <div class="flex items-center gap-2 text-sm text-[#638888]">
@@ -168,7 +176,7 @@
                     All changes autosaved at 10:45 AM
                 </div>
 <div class="flex gap-4">
-<button class="px-6 py-2.5 rounded-lg border border-[#dce5e5] dark:border-[#2a3f3f] text-sm font-bold">Save Draft</button>
+<a href='{{route("restaurant.index")}}' class="px-6 py-2.5 rounded-lg border border-[#dce5e5] dark:border-[#2a3f3f] text-sm font-bold">Save Draft</a>
 
 </form>
 </div>
@@ -179,7 +187,11 @@
 document.addEventListener("click", function (e) {
 
     // ➕ Add menu item
+
+
+
     if (e.target.closest(".add-item")) {
+
         const template = document.getElementById("menu-item-template");
         const clone = template.content.cloneNode(true);
 
@@ -195,10 +207,12 @@ document.addEventListener("click", function (e) {
 
 </body></html>
 <template id="menu-item-template">
+    <form method='POST' action='{{route("plat.store")}}' >
+        @csrf
     <div class="menu-item flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-[#dce5e5] dark:border-[#2a3f3f]">
         <div class="w-full sm:w-1/4">
             <label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Item Name</label>
-            <input class="form-input w-full h-10 rounded border-[#dce5e5]" type="text" name="item_name[]">
+            <input class="form-input w-full h-10 rounded border-[#dce5e5]" type="text" name="nom">
         </div>
 
         <div class="flex-1">
@@ -208,13 +222,15 @@ document.addEventListener("click", function (e) {
 
         <div class="w-24">
             <label class="text-[10px] font-bold uppercase text-[#638888] mb-1 block">Price</label>
-            <input class="form-input w-full h-10 rounded border-[#dce5e5] text-center" type="number" step="0.01" name="item_price[]">
+            <input class="form-input w-full h-10 rounded border-[#dce5e5] text-center" type="number" step="0.01" name="prix">
         </div>
 
         <div class="flex items-end pb-1">
-            <button type="button" class="remove-item h-8 w-8 rounded bg-red-100 text-red-500">
-                <span class="material-symbols-outlined">delete</span>
+            <button type="submit"
+            class="add-item h-10 px-4 rounded-lg bg-primary text-[#111818] text-sm font-bold flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">add</span> Add
             </button>
         </div>
     </div>
+    </form>
 </template>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Plat;
 use App\Models\Menu;
 use App\Models\TypeCuisine;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
 class PlatController extends Controller
@@ -18,24 +19,26 @@ class PlatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required|string',
-            'prix' => 'required|integer',
-    
+            'nom' => 'required|string|max:255',
+            'prix' => 'required|numeric|min:0',
         ]);
 
-        $user_id= auth()->user()->id;
-        $restaurant_id=Restaurant::where('user_id',$user_id)->orderBy('id','desc')->first;//akhir restaurant tzad how li kancreew lih l menu daba
-        $menu_id=Menu::where('restaurant_id',$restaurant_id)->get();
-        $typecuisine_id=Restaurant::where('id',$restaurant_id)->value('typecuisine_id');
+        $restaurant = Restaurant::where('user_id', auth()->id())
+            ->latest()
+            ->firstOrFail();
 
-        Plat::create(['nom'=>$data['nom'],
-        'nom'=>$request->nom,
-        'prix'=>$request->prix,
-        'menu_id'=>$menu_id,
-        'typecuisine_id'=>$typecuisine_id,
+        $menu = Menu::where('restaurant_id', $restaurant->id)
+            ->latest()
+            ->firstOrFail();
+
+        Plat::create([
+            'nom' => $request->nom,
+            'prix' => $request->prix,
+            'menu_id' => $menu->id,
+            'typecuisine_id' => $restaurant->typecuisine,
         ]);
 
-        return redirect()->route('menu.create');
+        return back()->with('success', 'Plat added');
     }
 
     public function show($id)

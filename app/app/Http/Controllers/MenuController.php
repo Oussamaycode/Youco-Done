@@ -12,6 +12,7 @@ use Illuminate\View\View;
 use App\Models\Restaurant;
 use App\Models\typeCuisine;
 
+
 class MenuController extends Controller
 {
 
@@ -25,17 +26,18 @@ class MenuController extends Controller
     public function store(Request $request)
     {
             $user_id=auth()->user()->id;
-            $restaurant_id=Restaurant::where('user_id',$user_id)->orderBy('id','desc')->first;//akhir restaurant tzad how li kancreew lih l menu daba
+            $restaurant=Restaurant::where('user_id',$user_id)->orderBy('id','desc')->first();//akhir restaurant tzad how li kancreew lih l menu daba
 
             $data = $request->validate([
             'nom' => 'required|string|max:255',
         ]);
 
         Menu::create(['nom'=>$data['nom'],
-        'restaurant_id'=>$restaurant_id,
+        'restaurant_id'=>$restaurant->id,
         ]);
 
         return redirect()->route('menu.create');
+
     }
 
     public function show($id)
