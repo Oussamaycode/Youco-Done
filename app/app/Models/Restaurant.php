@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Restaurant extends Model
 {
-    //
+    public $fillable=['nom','localisation','capacite','typecuisine','statut','user_id'];
 }

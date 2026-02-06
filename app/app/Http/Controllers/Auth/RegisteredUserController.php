@@ -31,6 +31,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'role' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255','unique:users'],
             'numero_de_telephone' =>['required','string','max:20','unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -38,6 +39,7 @@ class RegisteredUserController extends Controller
 
         $user = User::create([
             'name' => $request->name,
+            'role' => $request->role,
             'email' => $request->email,
             'numero_de_telephone' => $request->numero_de_telephone,
             'password' => Hash::make($request->password),
@@ -47,6 +49,20 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        $role = Auth::user()->role;
+
+        switch ($role) {
+            case 'client':
+                return redirect(route('profile.view', absolute: false));
+                break;
+            case 'restaurateur':
+                return redirect(route('restaurateurdashboard', absolute: false));
+                break;
+            default:
+                return redirect(route('profile.view', absolute: false));
+                break;
+        }
+    
+        
     }
 }

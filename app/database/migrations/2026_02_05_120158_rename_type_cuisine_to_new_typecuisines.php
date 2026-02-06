@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('typecuisines', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom');
-            $table->text('description');
-            $table->timestamps();
+        Schema::table('new_typecuisines', function (Blueprint $table) {
+            //
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('typecuisines');
+        Schema::table('new_typecuisines', function (Blueprint $table) {
+            //
+        });
     }
 };

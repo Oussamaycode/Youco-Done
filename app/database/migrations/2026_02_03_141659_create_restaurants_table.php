@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('localisation');
             $table->integer('capacite');
             $table->boolean('statut'); 
+            $table->foreignID('typecuisine');
+            $table->foreignID('user_id');
             $table->timestamps();
         });
     }
